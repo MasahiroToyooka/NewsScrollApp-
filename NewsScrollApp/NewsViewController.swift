@@ -223,9 +223,9 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
     // インジケータの処理
     // インジケータと背景のviewを作る処理
     func createIndicator() {
+        
         // インジケータ関連
         // インジケータの生成
-
         indicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60), type: .ballScaleRippleMultiple, color: UIColor.blue, padding: 0)
         // インジケータの位置を画面中央にする
         indicatorView.center = self.view.center
