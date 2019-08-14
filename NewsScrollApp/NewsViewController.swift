@@ -9,12 +9,19 @@
 import UIKit
 import XLPagerTabStrip
 import WebKit
+import NVActivityIndicatorView
 
 class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDataSource, UITableViewDelegate, WKNavigationDelegate, XMLParserDelegate{
 
     // 引っ張って更新
     var refreshControl: UIRefreshControl!
 
+    // インジケータ
+    @IBOutlet var indicatorView: NVActivityIndicatorView!
+    
+    // ロード画面時のview
+    var indicatorBackgroundView: UIView!
+    
     // テーブルビューのインスタンスを取得
     var tableView: UITableView = UITableView()
 
