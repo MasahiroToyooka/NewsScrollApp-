@@ -16,9 +16,8 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
     // 引っ張って更新
     var refreshControl: UIRefreshControl!
 
-    // インジケータ
-    @IBOutlet var indicatorView: NVActivityIndicatorView!
-    
+    private var indicatorView: NVActivityIndicatorView!
+
     // ロード画面時のview
     var indicatorBackgroundView: UIView!
     
@@ -77,6 +76,10 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         webView.isHidden = true
         toolBar.isHidden = true
 
+        
+        // インジケータと背景を作る
+        createIndicator()
+        
         parseUrl()
     }
 
@@ -189,6 +192,13 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
             return
         }
         let urlRequest = NSURLRequest(url: url)
+        
+        // 背景を暗くする
+        self.view.addSubview(indicatorBackgroundView)
+        // インジケータの表示
+        indicatorView.startAnimating()
+        // セルを選択できなくする
+        self.tableView.allowsSelection = false
         // ここでロード
         webView.load(urlRequest as URLRequest)
     }
@@ -201,6 +211,32 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         toolBar.isHidden = false
         // webviewを表示する
         webView.isHidden = false
+        
+        // インジケータを停止させる
+        indicatorView.stopAnimating()
+        // 背景を元に戻す
+        indicatorBackgroundView.removeFromSuperview()
+        // セルを選択できるようにする
+        self.tableView.allowsSelection = true
+    }
+    
+    // インジケータの処理
+    // インジケータと背景のviewを作る処理
+    func createIndicator() {
+        // インジケータ関連
+        // インジケータの生成
+
+        indicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60), type: .ballScaleRippleMultiple, color: UIColor.blue, padding: 0)
+        // インジケータの位置を画面中央にする
+        indicatorView.center = self.view.center
+        // インジケータの表示
+        self.view.addSubview(indicatorView)
+        // インジケータの背景
+        indicatorBackgroundView = UIView(frame: self.view.bounds)
+        // 背景色を黒にする
+        indicatorBackgroundView.backgroundColor = UIColor.black
+        // 透明度を変更
+        indicatorBackgroundView.alpha = 0.4
     }
 
     // キャンセル
