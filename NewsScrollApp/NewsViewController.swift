@@ -228,7 +228,7 @@ class NewsViewController: UIViewController, IndicatorInfoProvider, UITableViewDa
         // インジケータの生成
         indicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60), type: .ballScaleRippleMultiple, color: UIColor.blue, padding: 0)
         // インジケータの位置を画面中央にする
-        indicatorView.center = self.view.center
+        indicatorView.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 80)
         // インジケータの表示
         self.view.addSubview(indicatorView)
         // インジケータの背景
